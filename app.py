@@ -3,7 +3,6 @@ import os
 from modulos import hoursandDate
 from time import sleep
 
-
 def main(page: ft.Page):
     page.window.width = 900
     page.window.height = 800
@@ -15,6 +14,16 @@ def main(page: ft.Page):
 
     folder = 'assets'
     origin = os.path.join(folder, 'icons')
+
+    def function_next(e):
+        section_2.visible = False
+        section_2_next.visible = True
+        page.update()
+
+    def function_back(e):
+        section_2.visible = True
+        section_2_next.visible = False
+        page.update()
 
     def close_banner(e):
         page.close(banner)
@@ -70,16 +79,15 @@ def main(page: ft.Page):
     )
 
     header = ft.Container(
-        height= 100,
         bgcolor= ft.Colors.BLACK12,
         padding= 20,
         border_radius= 0,
         alignment= ft.Alignment(x=.0, y=.0),
-        content=ft.Column(
-            spacing= 2,
+        content=ft.ResponsiveRow(
             controls=[
-                ft.Row([logo_sys,ft.Column(spacing=1,controls=[h1,h2]), bar_search],alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
-            ]
+                ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[ft.Row([logo_sys,ft.Column(spacing=1,controls=[h1,h2])])]),
+                ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[ft.Row([bar_search],alignment=ft.MainAxisAlignment.CENTER)]),
+            ],alignment=ft.MainAxisAlignment.END, vertical_alignment=ft.CrossAxisAlignment.CENTER
         )
     )
 
@@ -122,6 +130,11 @@ def main(page: ft.Page):
         opacity= .6
     )
 
+    mylogo = ft.Image(
+        src= os.path.join(origin, 'mylogo.png'),
+        width=30
+    )
+
     title_header = ft.Text(
         value="Dorabelly®",
         size= 30,
@@ -134,12 +147,13 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         size= 16,
         italic= True,
         weight= ft.FontWeight.W_200,
+        text_align= ft.TextAlign.JUSTIFY,
         opacity= .6
     )
 
     column_texts = ft.Column(
         controls=[
-            title_header,
+            ft.Row([mylogo,title_header],alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.CENTER),
             ft.Column([text],alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([ic_whatsapp, paragrafo_1],alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([ic_email, paragrafo_2],alignment=ft.MainAxisAlignment.CENTER),
@@ -343,12 +357,12 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     button_next = ft.TextButton(
         text= 'Proximo >',
         style=style_btn,
-        on_click=''
+        on_click= function_next
     )
     button_back = ft.TextButton(
         text= '< Voltar',
         style=style_btn,
-        on_click=''
+        on_click= function_back
     )
 
     section_2 = ft.Container(
@@ -388,7 +402,9 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
                 problems,
                 ft.Text('Descrição do problema', size=16),
                 description,
+                date_sections,
                 ft.Row([expenses, drop]),
+                button_register,
                 ft.Divider(height=1),
                 ft.Row([button_back],alignment=ft.MainAxisAlignment.START),
             ]
