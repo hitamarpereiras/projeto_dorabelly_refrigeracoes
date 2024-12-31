@@ -124,7 +124,7 @@ def main(page: ft.Page):
 
     title_header = ft.Text(
         value="Dorabelly®",
-        size= 28,
+        size= 30,
     )
 
     text = ft.Text(
@@ -140,7 +140,7 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     column_texts = ft.Column(
         controls=[
             title_header,
-            ft.Column([text]),
+            ft.Column([text],alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([ic_whatsapp, paragrafo_1],alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([ic_email, paragrafo_2],alignment=ft.MainAxisAlignment.CENTER),
             ft.Row([ic_insta, paragrafo_3],alignment=ft.MainAxisAlignment.CENTER),
@@ -150,11 +150,12 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     section_1 = ft.Container(
         expand= True,
         padding= 60,
+        height= 640,
         alignment= ft.Alignment(x=.0, y=.0),
         content=ft.Column(
             controls=[
                 column_texts,
-            ]
+            ],alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.CENTER
         )
     )
 
@@ -302,6 +303,26 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         ]
     )
 
+    drop_check = ft.Dropdown(
+        width=140,
+        label='SITUAÇÃO',
+        label_style= ft.TextStyle(color=ft.Colors.WHITE54),
+        bgcolor= 'transparent',
+        focused_border_color= 'white',
+        options=[
+            ft.dropdown.Option('NÃO ATENDIDO'),
+            ft.dropdown.Option('FINALIZADO')
+        ]
+    )
+
+    expenses = ft.TextField(
+        label= 'Valor',
+        border_color= 'transparent',
+        bgcolor= ft.Colors.BLACK38,
+        width= 110,
+        focused_border_color= 'white'
+    )
+
     button_register = ft.ElevatedButton(
         text= 'Registrar',
         width= 140,
@@ -321,12 +342,19 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
 
     button_next = ft.TextButton(
         text= 'Proximo >',
-        style=style_btn
+        style=style_btn,
+        on_click=''
+    )
+    button_back = ft.TextButton(
+        text= '< Voltar',
+        style=style_btn,
+        on_click=''
     )
 
     section_2 = ft.Container(
         expand= True,
         padding= 50,
+        height=640,
         bgcolor=ft.Colors.WHITE10,
         alignment= ft.alignment.center,
         content=ft.Column(
@@ -344,11 +372,34 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         )
     )
 
+    section_2_next = ft.Container(
+        visible= False,
+        expand= True,
+        padding= 50,
+        height=640,
+        bgcolor=ft.Colors.WHITE10,
+        alignment= ft.alignment.center,
+        content=ft.Column(
+            spacing= 14,
+            scroll=ft.ScrollMode.HIDDEN,
+            controls=[
+                ft.Text('Sessao Cliente', size=20),
+                ft.Divider(height=1),
+                problems,
+                ft.Text('Descrição do problema', size=16),
+                description,
+                ft.Row([expenses, drop]),
+                ft.Divider(height=1),
+                ft.Row([button_back],alignment=ft.MainAxisAlignment.START),
+            ]
+        )
+    )
+
     main = ft.ResponsiveRow(
             [
-                ft.Column(col={"sm": 6, "md": 6, "xl": 6}, controls=[section_1]),
-                ft.Column(col={"sm": 6, "md": 6, "xl": 6}, controls=[section_2])
-            ]
+                ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[section_1]),
+                ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[section_2, section_2_next])
+            ],alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.CENTER
         )
     
     footer = ft.Container(
@@ -368,12 +419,12 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         controls=[
             header,
             main,
-            footer
         ]
     )
 
     page.add(
-        body
+        body,
+        footer
     )
 
 if __name__ == '__main__':
