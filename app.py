@@ -3,6 +3,7 @@ import os
 from modulos import hoursandDate
 from time import sleep
 
+
 def main(page: ft.Page):
     page.window.width = 900
     page.window.height = 800
@@ -152,11 +153,10 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         alignment= ft.Alignment(x=.0, y=.0),
         content=ft.Column(
             controls=[
-                column_texts
+                column_texts,
             ]
         )
     )
-
 
     name = ft.TextField(
         label= 'Nome',
@@ -191,6 +191,17 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         height= 60,
         focused_border_color= 'white',
         prefix_icon= ft.Icons.EMAIL
+    )
+
+    address = ft.TextField(
+        label= 'Endereço',
+        text_align= 'center',
+        border_color= 'transparent',
+        bgcolor= ft.Colors.BLACK38,
+        width= 340,
+        height= 60,
+        focused_border_color= 'white',
+        prefix_icon= ft.Icons.HOME
     )
 
     problems = ft.TextField(
@@ -299,6 +310,20 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         on_click=lambda e: page.open(banner)
     )
 
+    style_btn = ft.ButtonStyle(
+        color= 'white',
+        text_style= ft.TextStyle(
+            weight=ft.FontWeight.W_300,
+            italic= True,
+            size= 18
+        )
+    )
+
+    button_next = ft.TextButton(
+        text= 'Proximo >',
+        style=style_btn
+    )
+
     section_2 = ft.Container(
         expand= True,
         padding= 50,
@@ -313,11 +338,8 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
                 name,
                 tell,
                 email,
-                date_sections,
-                ft.Row([problems, drop]),
-                ft.Text('Descricao do problema:', size=14),
-                description,
-                button_register
+                address,
+                ft.Row([button_next],alignment=ft.MainAxisAlignment.END),
             ]
         )
     )
