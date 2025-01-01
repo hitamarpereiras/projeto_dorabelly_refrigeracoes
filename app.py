@@ -9,8 +9,8 @@ def main(page: ft.Page):
     page.padding = 0
     page.scroll = ft.ScrollMode.HIDDEN
     page.window.center()
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.horizontal_alignment = ft.MainAxisAlignment.CENTER
+    page.vertical_alignment = ft.CrossAxisAlignment.CENTER
 
     folder = 'assets'
     origin = os.path.join(folder, 'icons')
@@ -381,7 +381,6 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     )
 
     section_2_next = ft.Container(
-        visible= True,
         expand= True,
         padding= 50,
         height=640,
@@ -405,6 +404,20 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         )
     )
 
+    section_data = ft.Container(
+        expand= True,
+        padding= 20,
+        bgcolor=ft.Colors.WHITE10,
+        alignment= ft.alignment.center,
+        content=ft.Column(
+            spacing= 14,
+            scroll=ft.ScrollMode.HIDDEN,
+            controls=[
+                ft.Text('Dados para criacao do PDF', size=20),
+            ]
+        )
+    )
+
     section_client = ft.AnimatedSwitcher(
         section_2,
         transition=ft.AnimatedSwitcherTransition.SCALE,
@@ -416,8 +429,9 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
 
     main = ft.ResponsiveRow(
             [
-                ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[section_1]),
-                ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[section_client])
+                ft.Column(col={"sm": 6, "md": 6, "xl": 6}, controls=[section_1]),
+                ft.Column(col={"sm": 6, "md": 6, "xl": 6}, controls=[section_client]),
+                ft.Column(col={"sm": 6, "md": 14, "xl":14}, controls=[section_data])
             ],alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.CENTER
         )
     
