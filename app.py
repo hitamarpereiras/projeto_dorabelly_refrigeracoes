@@ -296,8 +296,8 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     ])
 
     drop = ft.Dropdown(
-        width= 140,
-        label= 'CONDICAO',
+        width= 160,
+        label= 'CONDICÃO',
         label_style= ft.TextStyle(color=ft.Colors.WHITE54),
         border_color= 'transparent',
         focused_border_color= 'white',
@@ -308,10 +308,10 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     )
 
     drop_check = ft.Dropdown(
-        width=140,
-        label='SITUAÇÃO',
+        width=160,
+        label= 'CONDICÃO',
+        border_color= 'transparent',
         label_style= ft.TextStyle(color=ft.Colors.WHITE54),
-        bgcolor= 'transparent',
         focused_border_color= 'white',
         options=[
             ft.dropdown.Option('NÃO ATENDIDO'),
@@ -382,7 +382,7 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
 
     section_2_next = ft.Container(
         expand= True,
-        padding= 50,
+        padding= 40,
         height=640,
         bgcolor=ft.Colors.WHITE10,
         alignment= ft.alignment.center,
@@ -390,12 +390,13 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
             spacing= 14,
             scroll=ft.ScrollMode.HIDDEN,
             controls=[
-                ft.Text('Sessao Cliente', size=20),
-                ft.Divider(height=1),
                 problems,
                 ft.Text('Descrição do problema', size=16),
                 description,
                 date_sections,
+                ft.Text('Clente foi atendido?', size=16),
+                drop_check,
+                ft.Text('Orçamento Total:', size=16),
                 ft.Row([expenses, drop]),
                 button_register,
                 ft.Divider(height=1),
