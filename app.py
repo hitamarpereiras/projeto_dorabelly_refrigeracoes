@@ -9,8 +9,8 @@ def main(page: ft.Page):
     page.padding = 0
     page.scroll = ft.ScrollMode.HIDDEN
     page.window.center()
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.horizontal_alignment = ft.MainAxisAlignment.CENTER
+    page.vertical_alignment = ft.CrossAxisAlignment.CENTER
 
     folder = 'assets'
     origin = os.path.join(folder, 'icons')
@@ -296,8 +296,8 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     ])
 
     drop = ft.Dropdown(
-        width= 140,
-        label= 'CONDICAO',
+        width= 160,
+        label= 'CONDICÃO',
         label_style= ft.TextStyle(color=ft.Colors.WHITE54),
         border_color= 'transparent',
         focused_border_color= 'white',
@@ -308,10 +308,10 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     )
 
     drop_check = ft.Dropdown(
-        width=140,
-        label='SITUAÇÃO',
+        width=160,
+        label= 'CONDICÃO',
+        border_color= 'transparent',
         label_style= ft.TextStyle(color=ft.Colors.WHITE54),
-        bgcolor= 'transparent',
         focused_border_color= 'white',
         options=[
             ft.dropdown.Option('NÃO ATENDIDO'),
@@ -381,9 +381,8 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     )
 
     section_2_next = ft.Container(
-        visible= True,
         expand= True,
-        padding= 50,
+        padding= 40,
         height=640,
         bgcolor=ft.Colors.WHITE10,
         alignment= ft.alignment.center,
@@ -391,16 +390,31 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
             spacing= 14,
             scroll=ft.ScrollMode.HIDDEN,
             controls=[
-                ft.Text('Sessao Cliente', size=20),
-                ft.Divider(height=1),
                 problems,
                 ft.Text('Descrição do problema', size=16),
                 description,
                 date_sections,
+                ft.Text('Clente foi atendido?', size=16),
+                drop_check,
+                ft.Text('Orçamento Total:', size=16),
                 ft.Row([expenses, drop]),
                 button_register,
                 ft.Divider(height=1),
                 ft.Row([button_back],alignment=ft.MainAxisAlignment.START),
+            ]
+        )
+    )
+
+    section_data = ft.Container(
+        expand= True,
+        padding= 20,
+        bgcolor=ft.Colors.WHITE10,
+        alignment= ft.alignment.center,
+        content=ft.Column(
+            spacing= 14,
+            scroll=ft.ScrollMode.HIDDEN,
+            controls=[
+                ft.Text('Dados para criacao do PDF', size=20),
             ]
         )
     )
@@ -416,8 +430,9 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
 
     main = ft.ResponsiveRow(
             [
-                ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[section_1]),
-                ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[section_client])
+                ft.Column(col={"sm": 6, "md": 6, "xl": 6}, controls=[section_1]),
+                ft.Column(col={"sm": 6, "md": 6, "xl": 6}, controls=[section_client]),
+                ft.Column(col={"sm": 6, "md": 14, "xl":14}, controls=[section_data])
             ],alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.CENTER
         )
     
