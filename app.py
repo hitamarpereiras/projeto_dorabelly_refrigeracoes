@@ -15,16 +15,6 @@ def main(page: ft.Page):
     folder = 'assets'
     origin = os.path.join(folder, 'icons')
 
-    def function_next(e):
-        section_2.visible = False
-        section_2_next.visible = True
-        page.update()
-
-    def function_back(e):
-        section_2.visible = True
-        section_2_next.visible = False
-        page.update()
-
     def close_banner(e):
         page.close(banner)
 
@@ -354,15 +344,19 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         )
     )
 
+    def animate(e):
+        section_client.content = section_2 if section_client.content == section_2_next else section_2_next
+        page.update()
+
     button_next = ft.TextButton(
         text= 'Proximo >',
         style=style_btn,
-        on_click= function_next
+        on_click= animate
     )
     button_back = ft.TextButton(
         text= '< Voltar',
         style=style_btn,
-        on_click= function_back
+        on_click= animate
     )
 
     section_2 = ft.Container(
@@ -387,7 +381,7 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     )
 
     section_2_next = ft.Container(
-        visible= False,
+        visible= True,
         expand= True,
         padding= 50,
         height=640,
@@ -411,10 +405,19 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         )
     )
 
+    section_client = ft.AnimatedSwitcher(
+        section_2,
+        transition=ft.AnimatedSwitcherTransition.SCALE,
+        duration=400,
+        reverse_duration=100,
+        switch_in_curve=ft.AnimationCurve.EASE_OUT,
+        switch_out_curve=ft.AnimationCurve.EASE_IN,
+    )
+
     main = ft.ResponsiveRow(
             [
                 ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[section_1]),
-                ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[section_2, section_2_next])
+                ft.Column(col={"sm": 6, "md": 6, "xl": 5}, controls=[section_client])
             ],alignment=ft.MainAxisAlignment.CENTER, vertical_alignment=ft.CrossAxisAlignment.CENTER
         )
     
