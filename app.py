@@ -220,25 +220,7 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         max_length= 16
     )
 
-    date = ft.TextField(
-        label= 'Pedido',
-        border_color= 'transparent',
-        bgcolor= ft.Colors.BLACK38,
-        width= 110,
-        focused_border_color= 'white',
-        disabled= True
-    )
-
-    date_2 = ft.TextField(
-        label= 'Visita',
-        border_color= 'transparent',
-        bgcolor= ft.Colors.BLACK38,
-        width= 110,
-        focused_border_color= 'white',
-        disabled= True
-    )
-
-    description = ft.TextField(
+    description_problem = ft.TextField(
         border_color= 'transparent',
         bgcolor= ft.Colors.BLACK38,
         expand=True,
@@ -248,16 +230,34 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         multiline= True,
     )
 
+    date_request = ft.TextField(
+        label= 'Pedido',
+        border_color= 'transparent',
+        bgcolor= ft.Colors.BLACK38,
+        width= 110,
+        focused_border_color= 'white',
+        disabled= True
+    )
+
+    date_visit = ft.TextField(
+        label= 'Visita',
+        border_color= 'transparent',
+        bgcolor= ft.Colors.BLACK38,
+        width= 110,
+        focused_border_color= 'white',
+        disabled= True
+    )
+
     #Funcoes para pegar as datas
     def handle_change(e):
         dates = f"{e.control.value.strftime("%d/%m/%Y")}"
-        date.value = dates
-        date.update()
+        date_request.value = dates
+        date_request.update()
         
     def handle_2_change(e):
         dates = f"{e.control.value.strftime("%d/%m/%Y")}"
-        date_2.value = dates
-        date_2.update()
+        date_visit.value = dates
+        date_visit.update()
 
     def handle_dismissal(e):
         page.close(date_picker)
@@ -291,11 +291,23 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
     )
 
     date_sections = ft.Row([
-        date, button_calender,
-        date_2, button2_calender
+        date_request, button_calender,
+        date_visit, button2_calender
     ])
 
-    drop = ft.Dropdown(
+    service_condition = ft.Dropdown(
+        width=160,
+        label= 'CONDICÃO',
+        border_color= 'transparent',
+        label_style= ft.TextStyle(color=ft.Colors.WHITE54),
+        focused_border_color= 'white',
+        options=[
+            ft.dropdown.Option('NÃO ATENDIDO'),
+            ft.dropdown.Option('ATENDIDO')
+        ]
+    )
+
+    payment_condition = ft.Dropdown(
         width= 160,
         label= 'CONDICÃO',
         label_style= ft.TextStyle(color=ft.Colors.WHITE54),
@@ -304,18 +316,6 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
         options=[
             ft.dropdown.Option('EM ABERTO'),
             ft.dropdown.Option('PAGO')
-        ]
-    )
-
-    drop_check = ft.Dropdown(
-        width=160,
-        label= 'CONDICÃO',
-        border_color= 'transparent',
-        label_style= ft.TextStyle(color=ft.Colors.WHITE54),
-        focused_border_color= 'white',
-        options=[
-            ft.dropdown.Option('NÃO ATENDIDO'),
-            ft.dropdown.Option('FINALIZADO')
         ]
     )
 
@@ -392,12 +392,12 @@ Dorabelly é uma empresa especializada em soluções de refrigeração, atendend
             controls=[
                 problems,
                 ft.Text('Descrição do problema', size=16),
-                description,
+                description_problem,
                 date_sections,
                 ft.Text('Clente foi atendido?', size=16),
-                drop_check,
+                service_condition,
                 ft.Text('Orçamento Total:', size=16),
-                ft.Row([expenses, drop]),
+                ft.Row([expenses, payment_condition]),
                 button_register,
                 ft.Divider(height=1),
                 ft.Row([button_back],alignment=ft.MainAxisAlignment.START),
